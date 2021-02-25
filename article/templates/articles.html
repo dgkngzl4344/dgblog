@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="col-md-6 offset-md-3">
+<h3>Makaleler</h3>
+<hr>
+</div>
+
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+
+  </div>
+
+  
+</div>
+
+{% if articles %}
+{% for article in articles %}
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+  <div class="span8">
+    <div class="row">
+      <div class="span8">
+        <h4><strong><a href="article/{{article.id}}/">{{article.title}}</a></strong></h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span2">
+        <a href="article/{{article.id}}/" class="thumbnail">
+            <img src="{{article.article_image.url}}"  alt="">
+        </a>
+      </div>
+      <div class="span6" style="overflow: hidden;" style="width: auto;" style="height: 100px;">      
+        <p style="overflow: hidden;">
+          {{article.content|truncatewords:20|safe}}
+        </p>
+        <p><a class="btn" href="article/{{article.id}}/">Devamını oku </a></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span8">
+        <p></p>
+        <p>
+          <i class="icon-user"></i> Yazar <a href="article/{{article.id}}/">{{article.author}}</a> 
+          | <i class="icon-calendar"></i> {{article.created_date}}
+         
+         
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+{% endfor %}
+<hr>
+
+
+
+
+
+
+
+
+{% else %}
+<div class="alert alert-danger">Henüz bir makale yok</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <!-- Post Content Column -->
+    <div class="col-lg-8">
+
+      <!-- Title -->
+      <h3 class="mt-4">{{article.title}}</h3>
+
+      <!-- Author -->
+      <p class="lead">
+        
+        {{article.author.username}} tarafından yayınlandı
+      </p>
+
+      <hr>
+
+      <!-- Date/Time -->
+      <p>{{article.created_date}}</p>
+
+      <hr>
+
+      <!-- Preview Image -->
+      {% if article.article_image %}
+      <img class="img-fluid rounded" src="{{article.article_image.url}}" alt="">
+      {% endif %}
+     
+
+      <hr>
+
+      <!-- Post Content -->
+      <p class="lead">
+          {{article.content|safe}}
+      </p>
+
+      <hr>
+
+
+      {% if comment %}
+      <h4>Yorumlar</h4>
+      {% for comments in comment %}
+      
+      <hr>
+     
+        <div class="media mb-4">
+          
+          <div class="media-body">
+            <h5 class="mt-0">{{comments.comment_author}}</h5>
+            {{comments.comment_content}}<br>
+            {{comments.comment_date}}
+          </div>
+        </div>
+      {% endfor %}
+
+
+      {% else %}
+      <div class="alert alert-danger">
+        Bu makalede yorum yapan yok ilk yorum yapan sen ol!
+      </div>
+      {% endif %}
+
+
+      
+      
+      
+      
+     
+      
+    
+
+      <div class="card my-4">
+          <h5 class="card-header">Yorum Ekle:</h5>
+          <form  method="POST" action="/articles/comment/{{article.id}}">
+          <div class="card-body">
+            
+              {% csrf_token %}
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="inputGroup-sizing-default">Adınız</span>
+                </div>
+                <input type="text" name ="name" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">Yorumunuz</label>
+                <textarea name = "comment" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <br>
+              <button class="btn btn-success" type="submit">Yorumu Ekle</button>
+              {% csrf_token %}
+              </div>
+            </form>
+          </div>
+        </div>
+        </div>
+        
+      </div>
+          </div>
+        </div>
+        </div>
+       
+          
+        </div>
+      </div>
+
+      
+
+{% endblock body %}
